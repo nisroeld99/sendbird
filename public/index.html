@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+  <title>Workspace</title>
+  
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  
+  
+  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+ 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+  <script type="text/javascript" src="/SendBird.min.js"></script>
+  
+</head>
+<body>
+    
+    
+        
+        <div>
+            <input type="text" id="input_message" style="width: 300px" />
+            
+        </div>
+    
+        <ul id="chat" style = "list-style-type : none;">
+            
+        </ul>    
+    
+    
+    
+    
+    <div class="container">
+    
+     <script>
+        
+        $(document).keypress(function(e) {
+        if(e.which == 13) {
+        sendbird.message($('#input_message').val());
+        $('#input_message').val('');
+          }
+        });
+        
+        
+        
+        sendbird.events.onMessageReceived = function(obj) {
+            var chatMessage = '<li>' + obj.user.name + ' : ' + obj.message + '</li>'; 
+            $('#chat').prepend(chatMessage);
+        };
+        
+     
+     
+       sendbird.init({
+        "app_id": 'E884DA69-DFFB-4EC4-95FA-21186739D555',
+        "guest_id": 'tim-choi',
+        "user_name": 'hodong',
+        "image_url": '',
+        "access_token": '',
+        "successFunc": function(data) {
+          
+            sendbird.joinChannel(
+            'd1bf8.likelion',
+            {
+          "successFunc" : function(data) {
+            console.log(data);
+            sendbird.connect({
+              "successFunc" : function(data) {
+                console.log(data);
+                // do something
+              },
+              "errorFunc": function(status, error) {
+                console.log(status, error);
+                // do something
+              }
+                });
+                // do something
+              },
+              "errorFunc": function(status, error) {
+                console.log(status, error);
+                // do something
+              }
+            }
+          );
+                   
+                   
+                },
+            "errorFunc": function(status, error) {
+            console.log(status, error);
+            }
+        });
+        
+        
+        </script>
+    </div>
+</body>
+</html>
